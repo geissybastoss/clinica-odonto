@@ -27,8 +27,7 @@ const Cliente = sequelize.define('Cliente', {
     allowNull: false,
   },
   status_financeiro: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.ENUM('regular', 'inadimplente'),
     defaultValue: 'regular', // 'regular' ou 'inadimplente'
   }
 });
