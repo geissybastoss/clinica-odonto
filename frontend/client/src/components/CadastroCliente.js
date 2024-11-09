@@ -1,41 +1,76 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { Container, TextField, Button, Typography, Grid, Paper } from '@mui/material';
 
-function CadastroCliente() {
+const CadastroCliente = () => {
   const [formData, setFormData] = useState({
     nome: '',
-    idade: '',
-    telefone: '',
-    endereco: '',
     email: '',
-    plano_saude: ''
+    telefone: '',
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3001/clientes', formData);
-      alert('Cliente cadastrado com sucesso!');
-    } catch (error) {
-      console.error('Erro ao cadastrar:', error);
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Lógica para enviar dados ao backend
+    console.log('Dados enviados:', formData);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="nome" placeholder="Nome" onChange={handleChange} />
-      <input type="number" name="idade" placeholder="Idade" onChange={handleChange} />
-      <input type="text" name="telefone" placeholder="Telefone" onChange={handleChange} />
-      <input type="text" name="endereco" placeholder="Endereço" onChange={handleChange} />
-      <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-      <input type="text" name="plano_saude" placeholder="Plano de Saúde" onChange={handleChange} />
-      <button type="submit">Cadastrar Cliente</button>
-    </form>
+    <Container maxWidth="sm">
+      <Paper elevation={3} style={{ padding: '20px', marginTop: '20px' }}>
+        <Typography variant="h5" gutterBottom>
+          Cadastro de Cliente
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="Nome"
+                name="nome"
+                value={formData.nome}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Telefone"
+                name="telefone"
+                value={formData.telefone}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button type="submit" variant="contained" color="primary" fullWidth>
+                Cadastrar
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+    </Container>
   );
-}
+};
 
 export default CadastroCliente;
