@@ -1,10 +1,10 @@
-import React from "react";
-import CadastroCliente from "./components/CadastroCliente";
+import React from 'react';
+import ClientList from './components/ClientList';
 
 const App = () => {
   return (
     <div>
-      <CadastroCliente />
+      <ClientList />
     </div>
   );
 };
